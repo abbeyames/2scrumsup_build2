@@ -1,0 +1,81 @@
+/* Colors */
+.darkTeal   {background-color: #388087;}
+.lightTeal  {background-color: #6fb3b8;}
+.lightBlue  {background-color: #badfe7;}
+.lightGreen {background-color: #c2edce;}
+.offWhite   {background-color: #f6f6f2;}
+.lightGray  {background-color: #e3e4e4;}
+
+/* Fonts  */
+.headingFont    {font-family: 'Oswald', sans-serif;}
+.bodyFont       {font-family: 'Quattrocento', serif;}
+
+* {
+    box-sizing: 		border-box;
+}
+
+/* For small screens (phones in portrait)  */
+@media only screen and (max-width: 500px) {
+    .col-sm-00  {display: 		   none; } 
+    .col-sm-12 	{width: 		   100%; }
+
+    .menu p { display: inline; }
+    .calendarBtn {display: inline; }
+}
+
+/* For medium screens (e.g. landscape phones and portrait tablets) */
+@media only screen and (min-width: 501px) {
+    .col-md-00  {display: 		   none; } /* note */
+    .col-md-01  {width: 		  8.33%; }
+    .col-md-02  {width: 		 16.66%; }
+    .col-md-03  {width: 		 25.00%; }
+    .col-md-04  {width: 		 33.33%; }
+    .col-md-05  {width: 		 41.66%; }
+    .col-md-06  {width: 		 50.00%; }
+    .col-md-07  {width: 		 58.33%; }
+    .col-md-08  {width: 		 66.66%; }
+    .col-md-09  {width: 		 75.00%; }
+    .col-md-10  {width: 		 83.33%; }
+    .col-md-11  {width: 		 91.66%; }
+    .col-md-12  {width: 		100.00%; }
+
+    .calendarBtn {display: block; }
+}
+
+/* For large screens or landscape tablets*/		
+@media only screen and (min-width: 1024px) {
+    .col-sm-00  {display: 		initial; }
+    .col-md-00  {display: 		initial; }
+    .col-lg-01  {width: 		  8.33%; }
+    .col-lg-02  {width: 		 16.66%; }
+    .col-lg-03  {width: 		 25.00%; }
+    .col-lg-04  {width: 		 33.33%; }
+    .col-lg-05  {width: 		 41.66%; }
+    .col-lg-06  {width: 		 50.00%; }
+    .col-lg-07  {width: 		 58.33%; }
+    .col-lg-08  {width: 		 66.66%; }
+    .col-lg-09  {width: 		 75.00%; }
+    .col-lg-10  {width: 		 83.33%; }
+    .col-lg-11  {width: 		 91.66%; }
+    .col-lg-12  {width: 		100.00%; }
+
+    .main       {height:            80%; }
+    .whitespace {height:            10%; }
+
+    .calendarBtn {display: block; }
+}
+
+[class*="col-"] {
+    float:              left;
+    padding:            2%;
+}
+
+.row::after {
+    content:            "";
+    clear:              both;
+    display:            block;
+}
+
+.menu {
+    display: inline;
+}
