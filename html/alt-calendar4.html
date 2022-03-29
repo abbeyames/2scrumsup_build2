@@ -249,7 +249,7 @@
             let dateHeader = document.getElementById("dateHeader");
             dateHeader.innerHTML = today.toDateString();
             let weekDate = document.getElementById("weekDate");
-            // weekDate.innerHTML = getWeek();
+            weekDate.innerHTML = getWeek();
             let monthName = document.getElementById("monthName");
             monthName.innerHTML = currentMonth;
 
@@ -287,8 +287,58 @@
         }
 
         function getWeek() {
+            // Get dates for the current week
+            let sun;
+            let sat;
+            let sunDate;
+            let satDate;
 
+            // Start with today's date: which day of the week is it?
+            switch (currentDay) {
+                case 'Sunday':
+                    sun = today.toLocaleDateString();
+                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+6);
+                    sat = satDate.toLocaleDateString();
+                    break;
+                case 'Monday':
+                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-1);
+                    sun = sunDate.toLocaleDateString();
+                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+5);
+                    sat = satDate.toLocaleDateString();
+                    break;
+                case 'Tuesday':
+                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-2);
+                    sun = sunDate.toLocaleDateString();
+                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+4);
+                    sat = satDate.toLocaleDateString();
+                    break;
+                case 'Wednesday':
+                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-3);
+                    sun = sunDate.toLocaleDateString();
+                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+3);
+                    sat = satDate.toLocaleDateString();
+                    break;
+                case 'Thursday':
+                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-4);
+                    sun = sunDate.toLocaleDateString();
+                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+2);
+                    sat = satDate.toLocaleDateString();
+                    break;
+                case 'Friday':
+                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-5);
+                    sun = sunDate.toLocaleDateString();
+                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+1);
+                    sat = satDate.toLocaleDateString();
+                    break;
+                case 'Saturday':
+                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-6);
+                    sun = sunDate.toLocaleDateString();
+                    sat = today.toLocaleDateString();
+                    break;
+            }
 
+            // Return week date to Sunday's date - Saturday's date
+            return `${sun} - ${sat}`;
         }
 
         function generateDay() {
