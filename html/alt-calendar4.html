@@ -66,6 +66,8 @@
             .col-md-10  {width: 		 83.33%; }
             .col-md-11  {width: 		 91.66%; }
             .col-md-12  {width: 		100.00%; }
+            
+            .menu, .calendar {height: 100vh;}
         }
 
         /* For large screens or landscape tablets*/		
@@ -84,6 +86,8 @@
             .col-lg-10  {width: 		 83.33%; }
             .col-lg-11  {width: 		 91.66%; }
             .col-lg-12  {width: 		100.00%; }
+
+            .menu, .calendar {height: 100vh;}
         }
 
         body {
@@ -122,7 +126,7 @@
             display: inline-block;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1, h2, h3, h4, h5, h6, th {
             font-family: var(--headingFont);
         }
 
@@ -181,19 +185,19 @@
                 <div class="weekdayHeader">
                     <h1 id="weekDate">Week Date</h1>
                     
-                    <div id="sun" class="timeSchedule">
+                    <div id="sun"   class="timeSchedule">
                         <h3>Sunday</h3>
                     </div>
                     
-                    <div id="mon" class="timeSchedule">
+                    <div id="mon"   class="timeSchedule">
                         <h3>Monday</h3>
                     </div>
                     
-                    <div id="tues" class="timeSchedule">
+                    <div id="tues"  class="timeSchedule">
                         <h3>Tuesday</h3>
                     </div>
                     
-                    <div id="wed" class="timeSchedule">
+                    <div id="wed"   class="timeSchedule">
                         <h3>Wednesday</h3>
                     </div>
                     
@@ -201,11 +205,11 @@
                         <h3>Thursday</h3>
                     </div>
                     
-                    <div id="fri" class="timeSchedule">
+                    <div id="fri"   class="timeSchedule">
                         <h3>Friday</h3>
                     </div>
                     
-                    <div id="sat" class="timeSchedule">
+                    <div id="sat"   class="timeSchedule">
                         <h3>Saturday</h3>
                     </div>
                 </div>
@@ -216,18 +220,20 @@
             <div id="monthCalendar">
                 <div class="monthHeader">
                     <h1 id="monthName">Month Name</h1>
-                    <h3>Sunday</h3>
-                    <h3>Monday</h3>
-                    <h3>Tuesday</h3>
-                    <h3>Wednesday</h3>
-                    <h3>Thursday</h3>
-                    <h3>Friday</h3>
-                    <h3>Saturday</h3>
                 </div>
-                <div class="weeks"></div>
-                <div class="weeks"></div>
-                <div class="weeks"></div>
-                <div class="weeks"></div>
+                <div class="monthBody">
+                    <table id="monthTable">
+                        <tr>
+                            <th>Sunday</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -238,128 +244,79 @@
 
     <!-- My Script  -->
     <script>
-        let today = new Date();
-        let dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        let currentDay = dayNames[today.getDay()];
-        let monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        let currentMonth = monthNames[today.getMonth()];
-        let currentYear = today.getFullYear();
+        let today           = new Date();
+        let dayNames        = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        let currentDay      = dayNames[today.getDay()];
+        let monthNames      = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        let currentMonth    = monthNames[today.getMonth()];
+        let currentYear     = today.getFullYear();
 
         function initialize() {
-            let dateHeader = document.getElementById("dateHeader");
-            dateHeader.innerHTML = today.toDateString();
-            let weekDate = document.getElementById("weekDate");
-            weekDate.innerHTML = getWeek();
-            let monthName = document.getElementById("monthName");
-            monthName.innerHTML = currentMonth;
+            console.log('Page is being initialized');
 
-            generateDay();
-            generateWeek();
+            let dateHeader          = document.getElementById("dateHeader");
+            dateHeader.innerHTML    = today.toDateString();
+            let weekDate            = document.getElementById("weekDate");
+            weekDate.innerHTML      = generateWeek(today);
+            let monthName           = document.getElementById("monthName");
+            monthName.innerHTML     = currentMonth;
+
+            buildDay();
+            buildWeek();
+            generateMonth(today);
 
             changeView('day');
         }
 
         function changeView(view) {
             // Hide all calendars
-            let day = document.getElementById("dayCalendar");
-            let week = document.getElementById("weekCalendar");
-            let month = document.getElementById("monthCalendar");
+            let day     = document.getElementById("dayCalendar");
+            let week    = document.getElementById("weekCalendar");
+            let month   = document.getElementById("monthCalendar");
 
-            day.style.display = "none";
-            week.style.display = "none";
-            month.style.display = "none";
+            day.style.display       = "none";
+            week.style.display      = "none";
+            month.style.display     = "none";
 
             // Enable selected calendar
             switch(view) {
                 case 'day': 
                     console.log('Day calendar is being shown');
-                    day.style.display = "block";
+                    day.style.display   = "block";
                     break;
                 case 'week': 
                     console.log('Week calendar is being shown');
-                    week.style.display = "block";
+                    week.style.display  = "block";
                     break;
                 case 'month': 
                     console.log('Month calendar is being shown');
                     month.style.display = "block";
+                    buildMonth();
                     break;
             }
         }
 
-        function getWeek() {
-            // Get dates for the current week
-            let sun;
-            let sat;
-            let sunDate;
-            let satDate;
+        function buildDay() {
+            // Builds the day calendar with a time schedule
 
-            // Start with today's date: which day of the week is it?
-            switch (currentDay) {
-                case 'Sunday':
-                    sun = today.toLocaleDateString();
-                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+6);
-                    sat = satDate.toLocaleDateString();
-                    break;
-                case 'Monday':
-                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-1);
-                    sun = sunDate.toLocaleDateString();
-                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+5);
-                    sat = satDate.toLocaleDateString();
-                    break;
-                case 'Tuesday':
-                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-2);
-                    sun = sunDate.toLocaleDateString();
-                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+4);
-                    sat = satDate.toLocaleDateString();
-                    break;
-                case 'Wednesday':
-                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-3);
-                    sun = sunDate.toLocaleDateString();
-                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+3);
-                    sat = satDate.toLocaleDateString();
-                    break;
-                case 'Thursday':
-                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-4);
-                    sun = sunDate.toLocaleDateString();
-                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+2);
-                    sat = satDate.toLocaleDateString();
-                    break;
-                case 'Friday':
-                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-5);
-                    sun = sunDate.toLocaleDateString();
-                    satDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()+1);
-                    sat = satDate.toLocaleDateString();
-                    break;
-                case 'Saturday':
-                    sunDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()-6);
-                    sun = sunDate.toLocaleDateString();
-                    sat = today.toLocaleDateString();
-                    break;
-            }
-
-            // Return week date to Sunday's date - Saturday's date
-            return `${sun} - ${sat}`;
-        }
-
-        function generateDay() {
-            let day = document.getElementById("dayCalendar");
-            let daySchedule = document.createElement("table");
-            daySchedule.className = "daySchedule";
-            let dayEnd = 18;
+            let day                 = document.getElementById("dayCalendar");
+            let daySchedule         = document.createElement("table");
+            daySchedule.className   = "daySchedule";
+            let dayEnd              = 18;
 
             for (let dayStart = 9; dayStart < dayEnd; dayStart++) {
-                let tableRow = document.createElement("tr");
+                let tableRow            = document.createElement("tr");
 
-                let timeCol = document.createElement("td");
+                let timeCol             = document.createElement("td");
                 if (dayStart > 12) {
                     timeCol.innerHTML = (dayStart - 12) + ':00 PM';
                 } else {
                     timeCol.innerHTML = dayStart + ':00 AM';
                 }
-                timeCol.className = "time";
-                let entry = document.createElement("td");
-                // entry.innerHTML = `&nbsp;`;
-                entry.className = "entry";
+                timeCol.className       = "time";
+                let entry               = document.createElement("td");
+                // entry.innerHTML      = `&nbsp;`;
+                entry.className         = "entry";
 
                 tableRow.appendChild(timeCol);
                 tableRow.appendChild(entry);
@@ -368,35 +325,132 @@
             day.appendChild(daySchedule);
         }
 
-        function generateWeek() {
+        function buildWeek() {
+            // Builds the week calendar with a time schedule
+
             let weeks = document.getElementsByClassName("timeSchedule");
 
-            for (let weekday = 0; 0 < 7; weekday++) {
-                let schedule = document.createElement("table");
-                schedule.className = "weekSchedule";
-                let dayEnd = 18;
+            for (let weekday = 0; weekday < 7; weekday++) {
+                let schedule                = document.createElement("table");
+                schedule.className          = "weekSchedule";
+                let dayEnd                  = 18;
 
                 for (let dayStart = 9; dayStart < dayEnd; dayStart++) {
-                    let tableRow = document.createElement("tr");
+                    let tableRow            = document.createElement("tr");
 
-                    let timeCol = document.createElement("td");
+                    let timeCol             = document.createElement("td");
                     if (dayStart > 12) {
-                        timeCol.innerHTML = (dayStart - 12) + ':00 PM';
+                        timeCol.innerHTML   = (dayStart - 12) + ':00 PM';
                     } else {
-                        timeCol.innerHTML = dayStart + ':00 AM';
+                        timeCol.innerHTML   = dayStart + ':00 AM';
                     }
-                    timeCol.className = "time";
-                    let entry = document.createElement("td");
-                    // entry.innerHTML = `&nbsp;`;
-                    entry.className = "entry";
+                    timeCol.className       = "time";
+                    let entry               = document.createElement("td");
+                    // entry.innerHTML      = `&nbsp;`;
+                    entry.className         = "entry";
 
                     tableRow.appendChild(timeCol);
                     tableRow.appendChild(entry);
                     schedule.appendChild(tableRow);
                 }
+                
                 weeks[weekday].appendChild(schedule);
             }
 
+        }
+
+        function generateWeek(givenDate) {
+            // Generates the date for the week calendar
+
+            // Get dates for the current week
+            let givenDateDay = dayNames[givenDate.getDay()];
+            let sun;
+            let sat;
+            let sunDate;
+            let satDate;
+
+            // Start with given date: which day of the week is it?
+            switch (givenDateDay) {
+                case 'Sunday':
+                    sun     = givenDate.toLocaleDateString();
+                    satDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()+6);
+                    sat     = satDate.toLocaleDateString();
+                    break;
+                case 'Monday':
+                    sunDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()-1);
+                    sun     = sunDate.toLocaleDateString();
+                    satDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()+5);
+                    sat     = satDate.toLocaleDateString();
+                    break;
+                case 'Tuesday':
+                    sunDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()-2);
+                    sun     = sunDate.toLocaleDateString();
+                    satDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()+4);
+                    sat     = satDate.toLocaleDateString();
+                    break;
+                case 'Wednesday':
+                    sunDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()-3);
+                    sun     = sunDate.toLocaleDateString();
+                    satDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()+3);
+                    sat     = satDate.toLocaleDateString();
+                    break;
+                case 'Thursday':
+                    sunDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()-4);
+                    sun     = sunDate.toLocaleDateString();
+                    satDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()+2);
+                    sat     = satDate.toLocaleDateString();
+                    break;
+                case 'Friday':
+                    sunDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()-5);
+                    sun     = sunDate.toLocaleDateString();
+                    satDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()+1);
+                    sat     = satDate.toLocaleDateString();
+                    break;
+                case 'Saturday':
+                    sunDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate()-6);
+                    sun     = sunDate.toLocaleDateString();
+                    sat     = givenDate.toLocaleDateString();
+                    break;
+            }
+
+            // Return week date to Sunday's date - Saturday's date
+            return `${sun} - ${sat}`;
+        }
+
+        function buildMonth() {
+            // Builds the month table with the ids for the boxes
+
+            let monthTable          = document.getElementById("monthTable");
+
+            for (let r = 0; r < 5; r++) {
+                let row             = document.createElement("tr");
+                row.className       = `r${r}`;
+
+                for (let c = 0; c < 7; c++) {
+                    let box         = document.createElement("td");
+                    box.id          = `box_r${r}c${c}`;
+                    box.className   = "monthBox";
+                    box.innerHTML   = `<div id="div_r${r}c${c}" class="boxDiv"></div>`;
+
+                    row.appendChild(box);
+                }
+
+                monthTable.appendChild(row);
+            }
+        }
+
+        function generateMonth(givenDate) {
+            // Populates the month table with dates
+
+            let startDay    = givenDate.getDate();
+            let givenMonth  = givenDate.getMonth();
+            let givenYear   = givenDate.getFullYear();
+
+            // What day of the week does the 1st day of the month start?
+
+            // How many days are in the current month?
+
+            // Link each box to the day view
         }
 
     </script>
