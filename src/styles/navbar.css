@@ -1,0 +1,25 @@
+/* Navbar Styling  */
+
+:root {
+    --darkTeal    : #388087;
+    --lightTeal   : #6fb3b8;
+    --lightBlue   : #badfe7;
+    --lightGreen  : #c2edce;
+    --offWhite    : #f6f6f2;
+    --lightGray   : #e3e4e4;
+
+    --headingFont : 'Oswald', sans-serif;
+    --bodyFont    : 'Quattrocento', serif;
+}
+
+.navbar {
+    background-color: var(--lightBlue);
+}
+
+.navbar-brand, .offcanvas-title, .nav-item, .btn {
+    font-family: var(--headingFont);
+}
+
+.dropdown-item, input {
+    font-family: var(--bodyFont);
+}
