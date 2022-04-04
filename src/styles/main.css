@@ -48,7 +48,7 @@
     .col-md-11  {width: 		 91.66%; }
     .col-md-12  {width: 		100.00%; }
     
-    .menu, .calendar {height: 100vh;}
+    .menu, .calendar {min-height: 100vh;}
 }
 
 /* For large screens or landscape tablets*/		
@@ -68,12 +68,13 @@
     .col-lg-11  {width: 		 91.66%; }
     .col-lg-12  {width: 		100.00%; }
 
-    .menu, .calendar {height: 100vh;}
+    .menu, .calendar {min-height: 100vh;}
 }
 
 body {
     margin: 0;
     padding: 0;
+    /* max-width: 100vw; */
 }
 
 .menu, .calendar {
@@ -115,23 +116,24 @@ p, td {
     font-family: var(--bodyFont);
 }
 
-.time {
+.daySchedule .time {
     text-align: right;
+    width: 10vw;
 }
 
 .daySchedule td {
     border: 1px solid var(--offWhite);
     padding: 10px;
+    height: 9vh;
 }
 
-.entry {
-    width: 80%;
+.daySchedule .entry {
+    width: 60vw;
 }
 
 .timeSchedule {
     display: inline-block;
     border: 1px solid var(--offWhite);
-    /* width: 30%; */
     padding: 3%;
 }
 
@@ -139,6 +141,21 @@ p, td {
     border-bottom: 1px solid var(--offWhite);
 }
 
-.btn-section {
-    display: inline-block;
+#weekdayBody .timeSchedule {
+    width: 21vw;
+    margin-bottom: 5px;
+}
+
+#weekdayBody .timeSchedule td {
+    padding: 10px;
+}
+
+#weekdayBody .time {
+    width: 30%;
+
+}
+
+#weekdayBody .entry {
+    width: 70%;
+
 }

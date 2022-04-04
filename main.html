@@ -22,6 +22,7 @@
      <!-- Stylesheets  -->
      <link rel="stylesheet" href="./src/styles/navbar.css">
      <link rel="stylesheet" href="./src/styles/main.css">
+     <link rel="stylesheet" href="./src/styles/month.css">
  
  </head>
  
@@ -45,16 +46,16 @@
              <div id="dayCalendar">
                  <h1 id="dateHeader">Today's Date</h1>
                  <section id="dayButtons" class="btn-section">
-                     <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'day')">Prev</button>
-                     <button type="button" class="changeDateBtn" onclick="changeDate('next', 'day')">Next</button>
+                     <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'day')">PREV</button>
+                     <button type="button" class="changeDateBtn" onclick="changeDate('next', 'day')">NEXT</button>
                  </section>
              </div>
              <div id="weekCalendar">
                  <div class="weekdayHeader">
                      <h1 id="weekDate">Week Date</h1>
                      <section id="weekButtons" class="btn-section">
-                         <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'week')">Prev</button>
-                         <button type="button" class="changeDateBtn" onclick="changeDate('next', 'week')">Next</button>
+                         <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'week')">PREV</button>
+                         <button type="button" class="changeDateBtn" onclick="changeDate('next', 'week')">NEXT</button>
                      </section>
                 </div>
                 <div id="weekdayBody">   
@@ -94,22 +95,12 @@
                  <div class="monthHeader">
                      <h1 id="monthName">Month Name</h1>
                      <section id="monthButtons" class="btn-section">
-                         <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'month')">Prev</button>
-                         <button type="button" class="changeDateBtn" onclick="changeDate('next', 'month')">Next</button>
+                         <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'month')">PREV</button>
+                         <button type="button" class="changeDateBtn" onclick="changeDate('next', 'month')">NEXT</button>
                      </section>
                  </div>
                  <div class="monthBody">
-                     <table id="monthTable">
-                         <tr>
-                             <th>Sunday</th>
-                             <th>Monday</th>
-                             <th>Tuesday</th>
-                             <th>Wednesday</th>
-                             <th>Thursday</th>
-                             <th>Friday</th>
-                             <th>Saturday</th>
-                         </tr>
-                     </table>
+                     <table id="monthTable"></table>
                  </div>
              </div>
          </div>
