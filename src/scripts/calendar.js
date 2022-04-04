@@ -89,6 +89,11 @@ function buildDay() {
     day.appendChild(daySchedule);
 }
 
+function generateDay(givenDate) {
+    let dateHeader          = document.getElementById("dateHeader");
+    dateHeader.innerHTML    = givenDate.toDateString();
+}
+
 function buildWeek() {
     // ***
     // Builds the week calendar with a time schedule
@@ -192,14 +197,47 @@ function buildMonth() {
 
     let monthTable          = document.getElementById("monthTable");
 
-    for (let r = 0; r < 5; r++) {
+    for (let r = 0; r < 6; r++) {
         let row             = document.createElement("tr");
         row.className       = `r${r}`;
 
         for (let c = 0; c < 7; c++) {
             let box         = document.createElement("td");
             box.id          = `box_r${r}c${c}`;
-            box.className   = "monthBox";
+            box.innerHTML   = `<div id="div_r${r}c${c}" class="boxDiv"></div>`;
+
+            row.appendChild(box);
+        }
+
+        monthTable.appendChild(row);
+    }
+}
+
+function clearMonth() {
+    // ***
+    // Clear the month table of inner HTML
+    // ***
+
+    let monthTable          = document.getElementById("monthTable");
+    monthTable.innerHTML    = `
+        <tr>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+        </tr>
+    `;
+
+    for (let r = 0; r < 6; r++) {
+        let row             = document.createElement("tr");
+        row.className       = `r${r}`;
+
+        for (let c = 0; c < 7; c++) {
+            let box         = document.createElement("td");
+            box.id          = `box_r${r}c${c}`;
             box.innerHTML   = `<div id="div_r${r}c${c}" class="boxDiv"></div>`;
 
             row.appendChild(box);
@@ -217,6 +255,11 @@ function generateMonth(givenDate) {
     let startDay        = givenDate.getDate();
     let givenMonth      = givenDate.getMonth() + 1;
     let givenYear       = givenDate.getFullYear();
+    
+    let monthName           = document.getElementById("monthName");
+    monthName.innerHTML     = monthNames[givenMonth-1];
+
+    clearMonth();
 
     // What day of the week does the 1st day of the month start?
     let firstDay        = new Date(`${givenYear}-${givenMonth}-01`);
@@ -232,10 +275,11 @@ function generateMonth(givenDate) {
     let days = 1;
     let rowNum = 0;
     
-    while (days < monthDays) {
+    while (days <= monthDays) {
 
         for (let colNum = firstDayBoxCol; colNum < 7; colNum++) {
             let box         = document.getElementById(`box_r${rowNum}c${colNum}`);
+            box.className   = "monthBox";
             box.innerHTML   = `<h3>${days}</h3>`;
             days++;
             if (days > monthDays) {
@@ -247,7 +291,7 @@ function generateMonth(givenDate) {
         firstDayBoxCol = 0;
     }
 
-    // Link each box to the day view
+    // TODO: Link each box to the day view
 }
 
 function getDaysInMonth(year, month) {
@@ -258,6 +302,47 @@ function getDaysInMonth(year, month) {
     return new Date(year, month, 0).getDate();
 }
 
-function changeDate(movement, calendarType) {
+// ***
+// Variables for changing the date
+// ***
+// Here for easy reference while coding
+let shownDate = today;
+let shownWeek = today;
+let shownMonth = today;
+let prevMovement = 0;
+let nextMovement = 0;
 
-}
+function changeDate(movement, calendarType) {
+    // ***
+    // Changes the date information shown in the calendar
+    // ***
+    
+    let movementType = 0;
+
+    switch (movement) {
+        case 'prev':
+            movementType = -1;
+            break;
+        case 'next':
+            movementType = 1;
+            break;
+    }
+
+    if (calendarType === 'day') {
+        shownDate = new Date(shownDate.getFullYear(), shownDate.getMonth(), shownDate.getDate() + movementType);
+        // console.log(shownDate);
+        generateDay(shownDate);
+    }
+    if (calendarType === 'week') {
+        shownWeek = new Date(shownWeek.getFullYear(), shownWeek.getMonth(), shownWeek.getDate() + (movementType * 7));
+        // console.log(shownWeek);
+        let weekDate            = document.getElementById("weekDate");
+        weekDate.innerHTML      = generateWeek(shownWeek);
+        // generateWeek(shownWeek);
+    }
+    if (calendarType === 'month') {
+        shownMonth = new Date(shownMonth.getFullYear(), shownMonth.getMonth() + movementType, shownMonth.getDate());
+        // console.log(shownMonth);
+        generateMonth(shownMonth);
+    }
+} 

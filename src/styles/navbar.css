@@ -13,13 +13,47 @@
 }
 
 .navbar {
-    background-color: var(--lightBlue);
+    background-color: var(--offWhite);
+    color: var(--darkTeal);
 }
 
-.navbar-brand, .offcanvas-title, .nav-item, .btn {
+.navbar-brand, .offcanvas-title, .nav-item, .btn, .nav-link {
     font-family: var(--headingFont);
+    color: var(--darkTeal);
+}
+
+.me-2 {
+    border-color: var(--lightGray);
+    color: var(--darkTeal);
+    font-family: var(--bodyFont);
 }
 
 .dropdown-item, input {
     font-family: var(--bodyFont);
+    color: var(--darkTeal);
+}
+
+.btn-outline-success:hover {
+    background-color: var(--lightGreen);
+    color: var(--darkTeal);
+}
+
+.nav-item:hover, .nav-link:hover {
+    color: var(--lightGreen);
+}
+
+.navbar-toggler {
+    background-color: var(--lightTeal);
+    border-color: var(--darkTeal);
+    color: var(--offWhite);
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    vertical-align: center;
+    padding: 5px;
+}
+
+.bi-list {
+    margin: 0;
+    padding: 0;
 }
