@@ -44,11 +44,20 @@
          <div class="calendar col-lg-09 col-md-09 col-sm-12 lightTeal">
              <div id="dayCalendar">
                  <h1 id="dateHeader">Today's Date</h1>
+                 <section id="dayButtons" class="btn-section">
+                     <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'day')">Prev</button>
+                     <button type="button" class="changeDateBtn" onclick="changeDate('next', 'day')">Next</button>
+                 </section>
              </div>
              <div id="weekCalendar">
                  <div class="weekdayHeader">
                      <h1 id="weekDate">Week Date</h1>
-                     
+                     <section id="weekButtons" class="btn-section">
+                         <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'week')">Prev</button>
+                         <button type="button" class="changeDateBtn" onclick="changeDate('next', 'week')">Next</button>
+                     </section>
+                </div>
+                <div id="weekdayBody">   
                      <div id="sun"   class="timeSchedule">
                          <h3>Sunday</h3>
                      </div>
@@ -84,6 +93,10 @@
              <div id="monthCalendar">
                  <div class="monthHeader">
                      <h1 id="monthName">Month Name</h1>
+                     <section id="monthButtons" class="btn-section">
+                         <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'month')">Prev</button>
+                         <button type="button" class="changeDateBtn" onclick="changeDate('next', 'month')">Next</button>
+                     </section>
                  </div>
                  <div class="monthBody">
                      <table id="monthTable">

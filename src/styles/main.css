@@ -138,3 +138,7 @@ p, td {
 .timeSchedule .entry {
     border-bottom: 1px solid var(--offWhite);
 }
+
+.btn-section {
+    display: inline-block;
+}

@@ -6,6 +6,10 @@ let currentMonth    = monthNames[today.getMonth()];
 let currentYear     = today.getFullYear();
 
 function initialize() {
+    // ***
+    // Sets up the initial load 
+    // ***
+
     console.log('Page is being initialized');
 
     let dateHeader          = document.getElementById("dateHeader");
@@ -22,6 +26,10 @@ function initialize() {
 }
 
 function changeView(view) {
+    // ***
+    // Changes the view on the main
+    // ***
+
     // Hide all calendars
     let day     = document.getElementById("dayCalendar");
     let week    = document.getElementById("weekCalendar");
@@ -51,7 +59,9 @@ function changeView(view) {
 }
 
 function buildDay() {
+    // ***
     // Builds the day calendar with a time schedule
+    // ***
 
     let day                 = document.getElementById("dayCalendar");
     let daySchedule         = document.createElement("table");
@@ -80,7 +90,9 @@ function buildDay() {
 }
 
 function buildWeek() {
+    // ***
     // Builds the week calendar with a time schedule
+    // ***
 
     let weeks = document.getElementsByClassName("timeSchedule");
 
@@ -114,7 +126,9 @@ function buildWeek() {
 }
 
 function generateWeek(givenDate) {
+    // ***
     // Generates the date for the week calendar
+    // ***
 
     // Get dates for the current week
     let givenDateDay = dayNames[givenDate.getDay()];
@@ -172,7 +186,9 @@ function generateWeek(givenDate) {
 }
 
 function buildMonth() {
+    // ***
     // Builds the month table with the ids for the boxes
+    // ***
 
     let monthTable          = document.getElementById("monthTable");
 
@@ -194,7 +210,9 @@ function buildMonth() {
 }
 
 function generateMonth(givenDate) {
+    // ***
     // Populates the month table with dates
+    // ***
 
     let startDay        = givenDate.getDate();
     let givenMonth      = givenDate.getMonth() + 1;
@@ -211,23 +229,35 @@ function generateMonth(givenDate) {
     // console.log(monthDays);
 
     // Populate day numbers in month table
-    let days = 0;
+    let days = 1;
+    let rowNum = 0;
     
     while (days < monthDays) {
-        rowNum = 0;
 
         for (let colNum = firstDayBoxCol; colNum < 7; colNum++) {
             let box         = document.getElementById(`box_r${rowNum}c${colNum}`);
             box.innerHTML   = `<h3>${days}</h3>`;
+            days++;
+            if (days > monthDays) {
+                break;
+            }
         }
 
         rowNum++;
+        firstDayBoxCol = 0;
     }
 
     // Link each box to the day view
 }
 
 function getDaysInMonth(year, month) {
+    // ***
     // Returns the number of days in a given month during a given year
+    // *** 
+
     return new Date(year, month, 0).getDate();
+}
+
+function changeDate(movement, calendarType) {
+
 }
