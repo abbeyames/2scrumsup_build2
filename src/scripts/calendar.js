@@ -34,10 +34,12 @@ function changeView(view) {
     let day     = document.getElementById("dayCalendar");
     let week    = document.getElementById("weekCalendar");
     let month   = document.getElementById("monthCalendar");
+    let schedule= document.getElementById("scheduleEvent");
 
     day.style.display       = "none";
     week.style.display      = "none";
     month.style.display     = "none";
+    schedule.style.display  = "none";
 
     // Enable selected calendar
     switch(view) {
@@ -55,6 +57,9 @@ function changeView(view) {
             buildMonth();
             generateMonth(today);
             break;
+        case 'schedule':
+            console.log('Schedule meeting form is being shown');
+            schedule.style.display = "block";
     }
 }
 

@@ -159,3 +159,63 @@ p, td {
     width: 70%;
 
 }
+
+.scheduleBtn {
+    display: block;
+    
+    border: 1px solid var(--darkTeal);
+    background-color: var(--darkTeal);
+    color: var(--offWhite);
+    font-family: var(--headingFont);
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.scheduleBtn:hover {
+    border-color: var(--lightGray);
+    background-color: var(--lightGray);
+    color: var(--darkTeal);
+}
+
+#schedule tr {
+    height: 5vh;
+}
+
+#schedule label {
+    font-family: var(--headingFont);
+    padding-right: 10px;
+}
+
+.scheduleTitle {
+    width: 100%;
+}
+
+.eventDescription {
+    width: 100%;
+    height: 10vh;
+}
+
+.availabilityRadio {
+    margin-left: 10px;
+}
+
+.availabilityLabel {
+    display: inline-block;
+}
+
+.saveMeeting {
+    float: right;
+    padding: 5px;
+    width: 100%;
+    border: 1px solid var(--lightGreen);
+    background-color: var(--lightGreen);
+    color: var(--darkTeal);
+    font-family: var(--headingFont);
+}
+
+.saveMeeting:hover {
+    border-color: var(--lightBlue);
+    background-color: var(--lightBlue);
+    color: var(--offWhite);
+}

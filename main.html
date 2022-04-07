@@ -38,17 +38,71 @@
                  <li><button type="button" class="menuBtn" onclick="changeView('week')">Week View</button></li>
                  <li><button type="button" class="menuBtn" onclick="changeView('month')">Monthly Calendar</button></li>
                  <li><button type="button" class="menuBtn" onclick="">Link Google Calendar</button></li>
-                 <li><button type="button" class="menuBtn" onclick="">Schedule Meeting</button></li>
+                 <li><button type="button" class="menuBtn" onclick="changeView('schedule')">Schedule Meeting</button></li>
                  <li><button type="button" class="menuBtn" onclick="">Compare Availability</button></li>
              </ul>
          </div>
          <div class="calendar col-lg-09 col-md-09 col-sm-12 lightTeal">
+             <div id="scheduleEvent">
+                 <h1 id="scheduleHeader">Schedule New Meeting</h1>
+                 <form id="schedule" action="">
+                     <table>
+                         <tr>
+                            <td>
+                                <label for="eventTitle">Title: </label></td>
+                            <td colspan="3">
+                                <input id="eventTitle" class="scheduleTitle" type="text"></td>
+                         </tr>
+                         <tr>
+                             <td>
+                                <label for="startDate">Start Date: </label></td>
+                             <td>
+                                <input id="startDate" type="datetime-local"></td>
+                             <td>
+                                <label for="endDate">End Date: </label></td>
+                             <td>
+                                <input id="endDate" type="datetime-local"></td>
+                         </tr>
+                         <tr>
+                             <td>
+                                <label for="recurring">Recurring: </label></td>
+                             <td colspan="3">
+                                <select id="recurring">
+                                    <option value="no">Does Not Repeat</option>
+                                    <option value="daily">Repeats Daily</option>
+                                    <option value="weekly">Repeats Weekly</option>
+                                    <option value="monthly">Repeats Monthly</option>
+                                </select></td>
+                         </tr>
+                         <tr>
+                             <td>
+                                <label for="description">Description: </label></td>
+                             <td colspan="3">
+                                <input id="description" class="eventDescription" type="textarea" placeholder="Optional"></td>
+                         </tr>
+                         <tr>
+                             <td colspan="4">
+                                <h5 class="availabilityLabel">Mentoring Availability: </h5>
+                                <input type="radio" name="mentorAvailability" id="notAvail" class="availabilityRadio" value="false" checked="checked">
+                                <label for="notAvail">No</label>
+                                <input type="radio" name="mentorAvailability" id="yesAvail" class="availabilityRadio" value="true">
+                                <label for="yesAvail">Yes</label></td>
+                         </tr>
+                         <tr>
+                             <td colspan="4">
+                                 <input type="submit" class="saveMeeting" value="SAVE EVENT">
+                             </td>
+                         </tr>
+                    </table>
+                 </form>
+             </div>
              <div id="dayCalendar">
                  <h1 id="dateHeader">Today's Date</h1>
                  <section id="dayButtons" class="btn-section">
                      <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'day')">PREV</button>
                      <button type="button" class="changeDateBtn" onclick="changeDate('next', 'day')">NEXT</button>
                  </section>
+                 <button type="button" class="scheduleBtn" onclick="changeView('schedule')">ADD EVENT</button>
              </div>
              <div id="weekCalendar">
                  <div class="weekdayHeader">
@@ -57,6 +111,7 @@
                          <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'week')">PREV</button>
                          <button type="button" class="changeDateBtn" onclick="changeDate('next', 'week')">NEXT</button>
                      </section>
+                     <button type="button" class="scheduleBtn" onclick="changeView('schedule')">ADD EVENT</button>
                 </div>
                 <div id="weekdayBody">   
                      <div id="sun"   class="timeSchedule">
@@ -98,6 +153,7 @@
                          <button type="button" class="changeDateBtn" onclick="changeDate('prev', 'month')">PREV</button>
                          <button type="button" class="changeDateBtn" onclick="changeDate('next', 'month')">NEXT</button>
                      </section>
+                     <button type="button" class="scheduleBtn" onclick="changeView('schedule')">ADD EVENT</button>
                  </div>
                  <div class="monthBody">
                      <table id="monthTable"></table>
@@ -112,6 +168,7 @@
  
      <!-- My Script  -->
      <script src="./src/scripts/calendar.js"></script>
+     <script src="./src/scripts/event-scheduling.js"></script>
  </body>
  
  </html>
